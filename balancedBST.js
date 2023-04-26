@@ -8,11 +8,22 @@ class Node {
 
 class Tree {
   constructor(array) {
-    this.array = array;
-    this.end = array.length - 1;
-    this.root = this.buildTree(this.array, 0, this.end);
+    // this.array = array;
+    this.cleanArray = this.cleanArray(array);
+    this.end = this.cleanArray.length - 1;
+    this.root = this.buildTree(this.cleanArray, 0, this.end);
   }
 
+  // sort and remove duplicate from the array
+  cleanArray(array) {
+    // remove duplicate
+    let uniqueArray = [...new Set(array)];
+    // sort the array
+    let sortedArray = uniqueArray.sort((a, b) => a - b);
+    return sortedArray;
+  }
+
+  // build the ballanced binary tree
   buildTree(array, start, end) {
     if (start > end) return null;
 
@@ -40,7 +51,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let tree = new Tree(arr);
 prettyPrint(tree.root);
