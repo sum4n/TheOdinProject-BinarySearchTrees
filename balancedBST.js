@@ -94,6 +94,25 @@ class Tree {
     }
     return minv;
   }
+
+  find(key) {
+    let result = this.findValue(this.root, key);
+    if (result != null && result.data == key) {
+      return result;
+    } else {
+      return `${key} not found in the tree.`;
+    }
+  }
+
+  findValue(root, key) {
+    if (root == null || root.data == key) return root;
+
+    if (key > root.data) {
+      return this.findValue(root.right, key);
+    } else if (key < root.data) {
+      return this.findValue(root.left, key);
+    }
+  }
 }
 
 // visualize binary search tree
@@ -122,3 +141,6 @@ prettyPrint(tree.root);
 console.log("Delete 4 from the tree:");
 tree.delete(4);
 prettyPrint(tree.root);
+
+console.log(tree.find(7));
+console.log(tree.find(321));
