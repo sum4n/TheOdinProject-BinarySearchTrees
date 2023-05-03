@@ -36,6 +36,7 @@ class Tree {
     return node;
   }
 
+  // insert node
   insert(key) {
     this.root = this.insertValue(this.root, key);
   }
@@ -55,6 +56,7 @@ class Tree {
     return root;
   }
 
+  // delete node
   delete(key) {
     this.root = this.deleteValue(this.root, key);
   }
@@ -95,6 +97,7 @@ class Tree {
     return minv;
   }
 
+  // find node
   find(key) {
     let result = this.findValue(this.root, key);
     if (result != null && result.data == key) {
