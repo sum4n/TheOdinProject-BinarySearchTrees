@@ -51,8 +51,48 @@ class Tree {
     } else if (key < root.data) {
       root.left = this.insertValue(root.left, key);
     }
+    // if rood.data == key, return root
+    return root;
+  }
+
+  delete(key) {
+    this.root = this.deleteValue(this.root, key);
+  }
+
+  deleteValue(root, key) {
+    if (root == null) return root;
+
+    if (key > root.data) {
+      root.right = this.deleteValue(root.right, key);
+    } else if (key < root.data) {
+      root.left = this.deleteValue(root.left, key);
+    } else {
+      // if key == root.data, this root will get deleted
+      // node with only 1 child or no child
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+
+      // get the smallest value in the right subtree
+      // for node with two children
+      root.data = this.minValue(root.right);
+
+      // delete the minValue
+      root.right = this.deleteValue(root.right, root.data);
+    }
 
     return root;
+  }
+
+  minValue(root) {
+    let minv = root.data;
+    while (root.left != null) {
+      minv = root.left.data;
+      root = root.left;
+    }
+    return minv;
   }
 }
 
@@ -74,7 +114,11 @@ let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let tree = new Tree(arr);
 prettyPrint(tree.root);
-console.log("Insert 6 into the tree:");
-tree.insert(5);
 
+console.log("Insert 6 into the tree:");
+tree.insert(6);
+prettyPrint(tree.root);
+
+console.log("Delete 4 from the tree:");
+tree.delete(4);
 prettyPrint(tree.root);
