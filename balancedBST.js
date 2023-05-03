@@ -35,6 +35,25 @@ class Tree {
 
     return node;
   }
+
+  insert(key) {
+    this.root = this.insertValue(this.root, key);
+  }
+
+  insertValue(root, key) {
+    if (root == null) {
+      root = new Node(key);
+      return root;
+    }
+
+    if (key > root.data) {
+      root.right = this.insertValue(root.right, key);
+    } else if (key < root.data) {
+      root.left = this.insertValue(root.left, key);
+    }
+
+    return root;
+  }
 }
 
 // visualize binary search tree
@@ -54,4 +73,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let tree = new Tree(arr);
+prettyPrint(tree.root);
+console.log("Insert 6 into the tree:");
+tree.insert(5);
+
 prettyPrint(tree.root);
