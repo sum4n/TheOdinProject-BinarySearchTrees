@@ -157,8 +157,11 @@ class Tree {
     }
   }
 
+  // level order function with recurssion
+  // populate queue with root and execute until queue becoumes empty.
   levelOrderRecurssion(callback, queue = [this.root], list = []) {
     if (queue.length != 0) {
+      // work with the first node in the queue
       let currentNode = queue[0];
       if (callback) {
         callback(currentNode.data);
@@ -166,9 +169,11 @@ class Tree {
         list.push(currentNode.data);
       }
 
+      // enqueue child nodes in the queue
       if (currentNode.left != null) queue.push(currentNode.left);
       if (currentNode.right != null) queue.push(currentNode.right);
 
+      // dequeue first node in the queue
       queue.shift();
 
       return this.levelOrderRecurssion(callback, queue, list);
