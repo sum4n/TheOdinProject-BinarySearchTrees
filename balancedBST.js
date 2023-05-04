@@ -157,22 +157,26 @@ class Tree {
     }
   }
 
-  levelOrderRecurssion(queue = [this.root], list = []) {
-    let currentNode = queue[0];
-
+  levelOrderRecurssion(callback, queue = [this.root], list = []) {
     if (queue.length != 0) {
-      list.push(queue[0].data);
+      let currentNode = queue[0];
+      if (callback) {
+        callback(currentNode.data);
+      } else {
+        list.push(currentNode.data);
+      }
+
       if (currentNode.left != null) queue.push(currentNode.left);
       if (currentNode.right != null) queue.push(currentNode.right);
 
-      console.log(currentNode.data);
       queue.shift();
 
-      // if (queue.length == 0) return;
-
-      return this.levelOrderRecurssion(queue, list);
+      return this.levelOrderRecurssion(callback, queue, list);
     }
-    return list;
+
+    if (!callback) {
+      return list;
+    }
   }
 }
 
@@ -193,33 +197,39 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let tree = new Tree(arr);
-// prettyPrint(tree.root);
+prettyPrint(tree.root);
 
-// lineBreak();
-// console.log("Insert 6 into the tree:");
+lineBreak();
+console.log("Insert 6 into the tree:");
 tree.insert(6);
-// prettyPrint(tree.root);
+prettyPrint(tree.root);
 
-// lineBreak();
-// console.log("Delete 4 from the tree:");
+lineBreak();
+console.log("Delete 4 from the tree:");
 tree.delete(4);
 prettyPrint(tree.root);
 
-// lineBreak();
-// console.log("find() function:");
-// console.log(tree.find(7));
-// console.log(tree.find(321));
+lineBreak();
+console.log("find() function:");
+console.log(tree.find(7));
+console.log(tree.find(321));
 
-// lineBreak();
-// console.log("levelOrder() with no argument: ");
-// console.log(tree.levelOrder());
-// console.log("levelOrder() with argument: ");
-// function lvlOrderCallback(value) {
-//   console.log(value);
-// }
-// tree.levelOrder(lvlOrderCallback);
+lineBreak();
+console.log("levelOrder() with no argument: ");
+console.log(tree.levelOrder());
+console.log("levelOrder() with argument: ");
+tree.levelOrder(lvlOrderCallback);
 
+lineBreak();
+console.log("levelOrderRecurssion() with recurssion with no argument: ");
 console.log(tree.levelOrderRecurssion());
+console.log("levelOrderRecurssion with argument: ");
+tree.levelOrderRecurssion(lvlOrderCallback);
+
+// callback funcion for levelOrder functions
+function lvlOrderCallback(value) {
+  console.log(value);
+}
 // lineBreak function to separate the results
 function lineBreak() {
   console.log("---------------------------------");
