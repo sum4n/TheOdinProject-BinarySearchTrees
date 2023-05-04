@@ -156,10 +156,6 @@ class Tree {
       return levelOrderArray;
     }
   }
-
-  levelOrderCallback(value) {
-    console.log(value);
-  }
 }
 
 // visualize binary search tree
