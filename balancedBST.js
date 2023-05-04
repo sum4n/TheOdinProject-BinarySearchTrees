@@ -116,6 +116,50 @@ class Tree {
       return this.findValue(root.left, key);
     }
   }
+
+  // breadth first level order traversal of the tree
+  // if callback, provide each node as arguement
+  // if not, return array of values in level order traversal
+  levelOrder(callback) {
+    let root = this.root;
+    // array to populate with node values
+    let levelOrderArray = [];
+
+    if (root == null) return;
+    // queue for breadth first approach
+    let queue = [];
+    queue.push(root);
+
+    while (queue.length != 0) {
+      let current = queue[0];
+      // console.log(queue[0].data);
+
+      // if there is a callback, provide each node as argument.
+      // if not populate the array to return it later.
+      if (callback) {
+        callback(current.data);
+      } else {
+        levelOrderArray.push(current.data);
+      }
+
+      // enqueue nodes
+      if (current.left != null) queue.push(current.left);
+      if (current.right != null) queue.push(current.right);
+      // console.log(queue);
+
+      // dequeue/delete the first item form the queue
+      queue.shift();
+    }
+
+    // if there is no callback argument, return the levelorder array
+    if (!callback) {
+      return levelOrderArray;
+    }
+  }
+
+  levelOrderCallback(value) {
+    console.log(value);
+  }
 }
 
 // visualize binary search tree
@@ -137,13 +181,32 @@ let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = new Tree(arr);
 prettyPrint(tree.root);
 
+lineBreak();
 console.log("Insert 6 into the tree:");
 tree.insert(6);
 prettyPrint(tree.root);
 
+lineBreak();
 console.log("Delete 4 from the tree:");
 tree.delete(4);
 prettyPrint(tree.root);
 
+lineBreak();
+console.log("find() function:");
 console.log(tree.find(7));
 console.log(tree.find(321));
+
+lineBreak();
+console.log("levelOrder() with no argument: ");
+console.log(tree.levelOrder());
+console.log("levelOrder() with argument: ");
+function lvlOrderCallback(value) {
+  console.log(value);
+}
+tree.levelOrder(lvlOrderCallback);
+
+// lineBreak function to separate the results
+function lineBreak() {
+  console.log("---------------------------------");
+  console.log("---------------------------------");
+}
