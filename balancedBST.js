@@ -258,6 +258,39 @@ class Tree {
     // get the max height
     return Math.max(left, right);
   }
+
+  // accepts a node and returns its depth
+  depth(item) {
+    let root = this.root;
+    let node = this.find(item);
+
+    if (typeof node == "object") {
+      return `Depth of ${item} is ${this.getDepth(node.data, root)}`;
+    } else {
+      return `${item} not found in the tree`;
+    }
+  }
+
+  // find depth of a node
+  getDepth(node, root, nDepth = -1) {
+    if (root == null) return;
+
+    // increament the depth in each recurssive call
+    nDepth++;
+
+    // console.log(node, root.data, nDepth);
+    if (node == root.data) return nDepth;
+
+    if (node > root.data) {
+      return this.getDepth(node, root.right, nDepth);
+    }
+
+    if (node < root.data) {
+      return this.getDepth(node, root.left, nDepth);
+    }
+
+    return nDepth;
+  }
 }
 
 // visualize binary search tree
@@ -329,6 +362,15 @@ console.log("Height of node ->");
 console.log(tree.height(8));
 console.log(tree.height(6345));
 console.log(tree.height(98327));
+
+lineBreak();
+console.log("Depth of node ->");
+console.log(tree.depth(6345));
+console.log(tree.depth(324));
+console.log(tree.depth(9));
+console.log(tree.depth(7));
+console.log(tree.depth(1));
+console.log(tree.depth(2342));
 
 // The callback function for various functions
 function lvlOrderCallback(value) {
