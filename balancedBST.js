@@ -234,6 +234,30 @@ class Tree {
 
     return arr;
   }
+
+  // accepts a node and returns its height
+  height(item) {
+    let node = this.find(item);
+    if (typeof node == "object") {
+      return `Height of node ${item} is: ${this.getHeight(node)}`;
+    } else {
+      return `${item} node found in the tree`;
+    }
+  }
+
+  // find height of a node
+  getHeight(node, nodeHeight = -1) {
+    if (node == null) return nodeHeight;
+    // increment nodeHeight in each recurssion call
+    nodeHeight++;
+
+    // recurssively call height with left and right
+    let left = this.getHeight(node.left, nodeHeight);
+    let right = this.getHeight(node.right, nodeHeight);
+
+    // get the max height
+    return Math.max(left, right);
+  }
 }
 
 // visualize binary search tree
@@ -300,7 +324,13 @@ console.log(tree.postorder());
 console.log("Postorder with callback");
 tree.postorder(lvlOrderCallback);
 
-// callback funcion for levelOrder functions
+lineBreak();
+console.log("Height of node ->");
+console.log(tree.height(8));
+console.log(tree.height(6345));
+console.log(tree.height(98327));
+
+// The callback function for various functions
 function lvlOrderCallback(value) {
   console.log(value);
 }
