@@ -241,7 +241,7 @@ class Tree {
     if (typeof node == "object") {
       return `Height of node ${item} is: ${this.getHeight(node)}`;
     } else {
-      return `${item} node found in the tree`;
+      return `${item} not found in the tree`;
     }
   }
 
