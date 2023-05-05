@@ -183,6 +183,23 @@ class Tree {
       return list;
     }
   }
+
+  // inorder traversal
+  inorder(callback, root = this.root, arr = []) {
+    if (root == null) return;
+
+    this.inorder(callback, root.left, arr);
+
+    if (callback) {
+      callback(root.data);
+    } else {
+      arr.push(root.data);
+    }
+
+    this.inorder(callback, root.right, arr);
+
+    return arr;
+  }
 }
 
 // visualize binary search tree
@@ -230,6 +247,12 @@ console.log("levelOrderRecurssion() with recurssion with no argument: ");
 console.log(tree.levelOrderRecurssion());
 console.log("levelOrderRecurssion with argument: ");
 tree.levelOrderRecurssion(lvlOrderCallback);
+
+lineBreak();
+console.log("Inorder without callback:");
+console.log(tree.inorder());
+console.log("Inorder with callback");
+tree.inorder(lvlOrderCallback);
 
 // callback funcion for levelOrder functions
 function lvlOrderCallback(value) {
