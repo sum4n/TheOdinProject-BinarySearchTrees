@@ -217,6 +217,23 @@ class Tree {
 
     return arr;
   }
+
+  // postorder traversal
+  postorder(callback, root = this.root, arr = []) {
+    if (root == null) return;
+
+    this.postorder(callback, root.left, arr);
+
+    this.postorder(callback, root.right, arr);
+
+    if (callback) {
+      callback(root.data);
+    } else {
+      arr.push(root.data);
+    }
+
+    return arr;
+  }
 }
 
 // visualize binary search tree
@@ -276,6 +293,12 @@ console.log("Preorder without callback:");
 console.log(tree.preorder());
 console.log("Preorder with callback");
 tree.preorder(lvlOrderCallback);
+
+lineBreak();
+console.log("Postorder without callback:");
+console.log(tree.postorder());
+console.log("Postorder with callback");
+tree.postorder(lvlOrderCallback);
 
 // callback funcion for levelOrder functions
 function lvlOrderCallback(value) {
