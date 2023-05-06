@@ -335,6 +335,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+// Driver script
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let tree = new Tree(arr);
@@ -417,8 +418,9 @@ lineBreak();
 console.log("Rebalance the tree ->");
 tree.root = tree.rebalance();
 prettyPrint(tree.root);
-
+console.log(`The tree is balanced: ${tree.isBalanced()}`);
 // The callback function for various functions
+
 function lvlOrderCallback(value) {
   console.log(value);
 }
