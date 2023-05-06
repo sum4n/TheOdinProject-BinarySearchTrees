@@ -309,6 +309,16 @@ class Tree {
       return true;
     }
   }
+
+  // rebalance tree
+  rebalance() {
+    // get sorted array through inorder() function
+    let array = this.inorder();
+    // console.log(array);
+    let end = array.length - 1;
+
+    return this.buildTree(array, 0, end);
+  }
 }
 
 // visualize binary search tree
@@ -402,6 +412,11 @@ tree.insert(7777);
 tree.insert(7778);
 prettyPrint(tree.root);
 console.log(`The tree is balanced: ${tree.isBalanced()}`);
+
+lineBreak();
+console.log("Rebalance the tree ->");
+tree.root = tree.rebalance();
+prettyPrint(tree.root);
 
 // The callback function for various functions
 function lvlOrderCallback(value) {
