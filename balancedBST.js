@@ -291,6 +291,24 @@ class Tree {
 
     return nDepth;
   }
+
+  // check if the tree is balanced
+  isBalanced(node = this.root, nodeHeight = -1) {
+    if (node == null) return nodeHeight;
+    // increment nodeHeight in each recurssion call
+    nodeHeight++;
+
+    // recurssively get left and right nodes
+    let left = this.getHeight(node.left, nodeHeight);
+    let right = this.getHeight(node.right, nodeHeight);
+
+    // if the difference is more than 1, tree is not balanced
+    if (Math.abs(left - right) >= 2) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 // visualize binary search tree
@@ -371,6 +389,19 @@ console.log(tree.depth(9));
 console.log(tree.depth(7));
 console.log(tree.depth(1));
 console.log(tree.depth(2342));
+
+lineBreak();
+console.log("Check tree balance ->");
+// tree.insert(7778);
+// tree.insert(7888);
+prettyPrint(tree.root);
+console.log(`The tree is balanced: ${tree.isBalanced()}`);
+console.log();
+console.log("Inserting 7777 and 7778 into tree.");
+tree.insert(7777);
+tree.insert(7778);
+prettyPrint(tree.root);
+console.log(`The tree is balanced: ${tree.isBalanced()}`);
 
 // The callback function for various functions
 function lvlOrderCallback(value) {
